@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.languagetool.AnalyzedSentence;
+import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -329,7 +330,7 @@ public class OpenAIRule extends RemoteRule {
     for (RemoteRuleConfig config : configs) {
       if (CONFIG_TYPE.equals(config.getType()) && 
           (config.getLanguage() == null || language.getShortCodeWithCountryAndVariant().matches(config.getLanguage()))) {
-        rules.add(new OpenAIRule(language, null, config, inputLogging));
+        rules.add(new OpenAIRule(language, JLanguageTool.getMessageBundle(), config, inputLogging));
       }
     }
     return rules;
