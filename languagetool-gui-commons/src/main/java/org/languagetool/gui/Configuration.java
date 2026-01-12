@@ -84,9 +84,20 @@ public class Configuration {
   static final boolean DEFAULT_AI_AUTO_CORRECT = false;
   static final boolean DEFAULT_AI_SHOW_STYLISTIC_CHANGES = false;
   
+  /**
+   * Default AI model name (OpenAI-compatible format).
+   */
   static final String DEFAULT_AI_MODEL = "gpt-4";
-  static final String DEFAULT_AI_URL = "http://localhost:8080/v1/chat/completions/";
-  static final String DEFAULT_AI_APIKEY = "1234567";
+  /**
+   * Default AI server URL. This should be an OpenAI-compatible Chat Completions API endpoint.
+   * Examples:
+   * - OpenAI: https://api.openai.com/v1/chat/completions
+   * - Ollama: http://localhost:11434/v1/chat/completions
+   * - LM Studio: http://localhost:1234/v1/chat/completions
+   * - LocalAI: http://localhost:8080/v1/chat/completions
+   */
+  static final String DEFAULT_AI_URL = "http://localhost:8080/v1/chat/completions";
+  static final String DEFAULT_AI_APIKEY = "";
 
   static final Color STYLE_COLOR = new Color(0, 175, 0);
 

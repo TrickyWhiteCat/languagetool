@@ -233,6 +233,7 @@ public abstract class Language {
     List<Rule> rules = new ArrayList<>();
     GRPCPostProcessing.configure(this, configs);
     rules.addAll(GRPCRule.createAll(this, configs, inputLogging));
+    rules.addAll(OpenAIRule.createAll(this, configs, inputLogging));
     configs.stream()
       .filter(config -> config.getRuleId().startsWith("TEST"))
       .map(c -> new TestRemoteRule(this, c))
