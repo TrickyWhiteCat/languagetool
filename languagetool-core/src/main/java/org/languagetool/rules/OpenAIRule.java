@@ -43,10 +43,46 @@ import java.util.concurrent.TimeoutException;
  * This rule sends text to an OpenAI-compatible endpoint (like OpenAI, Ollama, LM Studio, etc.)
  * and uses the LLM response to generate grammar corrections.
  *
- * The API endpoint should be compatible with the OpenAI Chat Completions API format:
+ * <p>The API endpoint should be compatible with the OpenAI Chat Completions API format:
  * POST /v1/chat/completions
  *
+ * <p>This rule extends {@link RemoteRule} and is fully compatible with the LanguageTool
+ * extension's suggestion system. The corrections returned by this rule appear as
+ * recommendations in the LanguageTool browser extension and LibreOffice/OpenOffice add-on.
+ *
+ * <p>Configuration options in remote-rules.json:
+ * <ul>
+ *   <li>{@code url} - The OpenAI-compatible API endpoint URL</li>
+ *   <li>{@code ruleId} - The unique rule identifier</li>
+ *   <li>{@code language} - Language code regex (e.g., "en.*" for English)</li>
+ *   <li>{@code type} - Must be "openai" for this rule</li>
+ *   <li>{@code options.model} - The model name (default: "gpt-4")</li>
+ *   <li>{@code options.apiKey} - The API key for authentication</li>
+ *   <li>{@code options.systemPrompt} - Custom system prompt for the LLM</li>
+ *   <li>{@code options.thirdPartyAI} - Set to "true" if using a third-party AI service
+ *       that requires user opt-in (see {@link RemoteRuleConfig#isUsingThirdPartyAI()})</li>
+ *   <li>{@code options.fallbackRuleId} - ID of fallback rule when user opts out of third-party AI</li>
+ * </ul>
+ *
+ * <p>Example configuration:
+ * <pre>
+ * {
+ *   "ruleId": "AI_OPENAI_GRAMMAR",
+ *   "type": "openai",
+ *   "url": "https://api.openai.com/v1/chat/completions",
+ *   "language": "en.*",
+ *   "options": {
+ *     "model": "gpt-4",
+ *     "apiKey": "your-api-key",
+ *     "thirdPartyAI": "true",
+ *     "fallbackRuleId": "MORFOLOGIK_RULE_EN"
+ *   }
+ * }
+ * </pre>
+ *
  * @since 6.5
+ * @see RemoteRule
+ * @see RemoteRuleConfig
  */
 public class OpenAIRule extends RemoteRule {
 
